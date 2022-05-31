@@ -1,11 +1,25 @@
-// ** Vector v0.3
+// ** Vector v0.4
 #include <iostream>
 
 using namespace std;
 
 int main(void)
 {
-	
+	char str1[2][5] = {
+		{'A', 'B', 'C', 'D', 'E'},
+		{'F', 'G', 'H', 'I', 'J'}
+	};
+	char* str2[2] = {
+		{(char*)"ABCD"},
+		{(char*)"EFGH"}
+
+	};
+
+	printf_s("%s\n", str2[0]);
+	printf("%c", *str1[0] + 1);
+	printf("%c", str1[0][0]);
+	cout << (char)(*str2[0] + 4) << endl;
+	return 0;
 	// 1. 데이터 추가 (새로운 공간 확보)
 	
 	// 2. 데이터 삭제
@@ -18,7 +32,6 @@ int main(void)
 	
 	// 6. container의 종료 지점.
 
-	return 0;
 
 }
 
