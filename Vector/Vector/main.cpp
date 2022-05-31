@@ -1,22 +1,25 @@
-// ** Vector v0.2
+// ** Vector v0.3
 #include <iostream>
 
 using namespace std;
 
 int main(void)
 {
+	
 	// 1. 데이터 추가 (새로운 공간 확보)
 	
 	// 2. 데이터 삭제
 
 	// 3. 데이터를 삽입할수 있는 공간의 크기
+
 	// 4. 현재 삽입되어있는 원소의 개수
+	
 	// 5. container의 시작 지점.
+	
 	// 6. container의 종료 지점.
 
-
-
 	return 0;
+
 }
 
 
