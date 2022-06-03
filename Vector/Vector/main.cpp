@@ -1,21 +1,58 @@
-// ** Vector ver 0.6
+// ** Vector ver 0.7 - 06.03
 #include <iostream>
 
 using namespace std;
 
+// ** 원소의 개수
+int Size = 0;
+
+// ** 최대 수용 개수
+int Capacity = 0;
+// ** 컨테이너
+int* Vector = nullptr;
+
+void push_back(const int& _Value);
+
 int main(void)
 {
+	for (int i = 0; i < 8; ++i)
+		push_back(i * 100 + 100);
 
+	for (int i = 0; i < Size; ++i)
+		cout << Vector[i] << endl;
 
-
-
-
-
+	
 	return 0;
-
 }
+
+void push_back(const int& _Value)
+{
+	if(Capacity <= Size)
+	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
+
+	int* Temp = new int[Capacity];
+
+	for (int i = 0; i < Size; ++i)
+		Temp[i] = Vector[i];
+
+	if (Vector)
+	{
+		delete Vector;
+		Vector = nullptr;
+	}
+
+	Temp[Size] = _Value;
+	++Size;
+
+	Vector = Temp;
+
+
+	cout << "Size : " << Size << endl;
+	cout << "Capacity : " << Capacity << endl;
+}
+
 /*
-- 보다는 +(-) 가 더 효율적이고 (2의 보수)
+- 보다는 +(-) 가 더 효율적이고 (2의 보수 - 반전시키고 + 1)
 / 보다는 *가 /2 보다는 >> 1 이 더 효율적이다.
 따라서 배열의 길이는 2^n 으로 해주는것이 효율적이다.
 
