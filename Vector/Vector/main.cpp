@@ -1,11 +1,11 @@
-// ** Vector ver 0.7 - 06.03
+// ** Vector ver 0.8 - 06.06
 #include <iostream>
 
 using namespace std;
 
 // ** 원소의 개수
 int Size = 0;
-
+int* Temp = nullptr;
 // ** 최대 수용 개수
 int Capacity = 0;
 // ** 컨테이너
@@ -27,20 +27,21 @@ int main(void)
 
 void push_back(const int& _Value)
 {
-	if(Capacity <= Size)
-	Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
-
-	int* Temp = new int[Capacity];
-
-	for (int i = 0; i < Size; ++i)
-		Temp[i] = Vector[i];
-
-	if (Vector)
+	if (Capacity <= Size)
 	{
-		delete Vector;
-		Vector = nullptr;
-	}
+		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
 
+		Temp = new int[Capacity];
+
+		for (int i = 0; i < Size; ++i)
+			Temp[i] = Vector[i];
+
+		if (Vector)
+		{
+			delete Vector;
+			Vector = nullptr;
+		}
+	}
 	Temp[Size] = _Value;
 	++Size;
 
