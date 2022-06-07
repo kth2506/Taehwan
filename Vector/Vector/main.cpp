@@ -126,7 +126,7 @@ void insert(const int _where, const int _value)
 
 	int* temp = new int[Size];
 
-	for (int i = 0; i < Size; ++i)
+	for (int i = _where - 1; i < Size; ++i)
 		temp[i] = Vector[i];
 
 	++Size;
