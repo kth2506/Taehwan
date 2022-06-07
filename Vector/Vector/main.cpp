@@ -1,4 +1,4 @@
-// ** Vector ver 0.9 - 06.07
+// ** Vector ver 0.9.1 - 06.07
 #include <iostream>
 
 using namespace std;
@@ -19,7 +19,7 @@ int back();
 
 void erase(const int _value);
 
-void insert(const int _where);
+void insert(const int _where, const int _value);
 
 // ** 컨테이너의 마지막 위치의 값을 삭제
 void pop_back();
@@ -44,6 +44,18 @@ int main(void)
 		cout << " Value : " << Vector[i] << endl;
 	cout << "Size : " << Size << endl;
 
+	insert(3, 4);
+
+
+	for (int i = 0; i < Size; ++i)
+		cout << " Value : " << Vector[i] << endl;
+	cout << "Size : " << Size << endl;
+
+	insert(6, 7);
+
+	for (int i = 0; i < Size; ++i)
+		cout << " Value : " << Vector[i] << endl;
+	cout << "Size : " << Size << endl;
 
 	cout << front() << endl;
 	cout << back() << endl;
@@ -111,12 +123,21 @@ void erase(const int _value)
 void insert(const int _where, const int _value)
 {
 	// ** 특정 위치에 원소를 삽입
+
+	int* temp = new int[Size];
+
+	for (int i = 0; i < Size; ++i)
+		temp[i] = Vector[i];
+
 	++Size;
-	Vector[_where - 1] = _value;
 
 	for (int i = _where; i < Size; ++i)
-	{
-	}
+		Vector[i] = temp[i - 1];
+
+
+	Vector[_where - 1] = _value;
+
+
 }
 
 /*
