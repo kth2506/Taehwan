@@ -1,4 +1,4 @@
-// ** Vector ver 0.9.1 - 06.07
+// ** Vector ver 0.10 - 06.08
 #include <iostream>
 
 using namespace std;
@@ -13,49 +13,31 @@ int* Vector = nullptr;
 // ** 컨테이너의 마지막 위치에 값을 추가
 void push_back(const int& _Value);
 
-int front();
-
-int back();
-
-void erase(const int _value);
-
-void insert(const int _where, const int _value);
-
 // ** 컨테이너의 마지막 위치의 값을 삭제
 void pop_back();
 
+// ** 가장 앞쪽에 있는 원소
+int front();
+
+// ** 가장 뒤쪽에 있는 원소
+int back();
+
+// ** _where의 위치의 데이터를 삭제
+void erase(const int _value);
+
+// ** _where의 위치에 _value 추가
+void insert(const int& _where, const int& _value);
+
+
 int main(void)
 {
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
 
-
-	pop_back();
-
-	push_back(10000);
-
-	for (int i = 0; i < Size; ++i)
-		cout << " Value : " << Vector[i] << endl;
-	cout << "Size : " << Size << endl;
-
-	erase(4);
-
-	for (int i = 0; i < Size; ++i)
-		cout << " Value : " << Vector[i] << endl;
-	cout << "Size : " << Size << endl;
-
-	insert(3, 4);
-
-
-	for (int i = 0; i < Size; ++i)
-		cout << " Value : " << Vector[i] << endl;
-	cout << "Size : " << Size << endl;
-
-	insert(6, 7);
-
-	for (int i = 0; i < Size; ++i)
-		cout << " Value : " << Vector[i] << endl;
-	cout << "Size : " << Size << endl;
+	insert(1, 1);
+	insert(1, 1);
+	insert(1, 1);
+	insert(1, 1);
 
 	cout << front() << endl;
 	cout << back() << endl;
@@ -63,32 +45,44 @@ int main(void)
 }
 
 void push_back(const int& _Value)
-{
+{  
+	// ** 만약 더 이상 수용할수 있는 공간이 없다면 
 	if (Capacity <= Size)
 	{
+		// ** 4보다 작으면 1 증가 4보다 크면 0.5배 증가
 		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
 
+		// ** 임시의 저장소를 생성
 		int* Temp = new int[Capacity + 1];
 
+		// ** 초기화
 		for (int i = 0; i <= Capacity; ++i)
 			Temp[i] = NULL;
 
+		// ** 기존에 있던 값을 복사
 		for (int i = 0; i < Size; ++i)
 			Temp[i] = Vector[i];
 		
-
+		// ** 기존 값을 삭제
 		if (Vector)
 		{
 			delete Vector;
 			Vector = nullptr;
 		}
 
+		// ** 임시의 값(해당 주소)을 복사해옴
 		Temp[Size] = _Value;
+
+		// ** 임시의 주소값에 복사해준 값과
+		// ** 추가된 새로운 값을 다시
+		// ** 전역변수로 저장되어 있는 Vector로 가져옴
 		Vector = Temp;
 	}
 	else
+		// ** 마지막 위치에 값 추가
 		Vector[Size] = _Value;
 
+	// ** 현재 원소의 최대값 증가
 	++Size;
 
 
@@ -99,45 +93,73 @@ void push_back(const int& _Value)
 
 void pop_back()
 {
+	// ** 현재 원소의 최대값 감소
 	--Size;
 }
 
 int front()
 {
+	// ** 0번째 원소 반환
 	return Vector[0];
 }
 
 int back()
 {
+	// ** 마지막 원소 반환
 	return Vector[Size - 1];
 }
 
 void erase(const int _value)
 {
 	// ** 특정 위치에 있는 원소를 삭제하고 정렬
+	
 	--Size;
+	
+	// ** 재정렬
 	for (int i = _value - 1; i < Size; ++i)
 		Vector[i] = Vector[i + 1];
+
+
+	for (int i = 0; i < Size; ++i)
+		cout << " Value : " << Vector[i] << endl;
+	cout << "Size : " << Size << endl;
 }
 
-void insert(const int _where, const int _value)
+void insert(const int& _where, const int& _value)
 {
 	// ** 특정 위치에 원소를 삽입
 
-	int* temp = new int[Size];
+	if (Capacity <= Size)
+		Capacity += (Capacity <= 3) ? 1 : Capacity >> 1;
 
-	for (int i = _where - 1; i < Size; ++i)
+		// ** 임시 저장소
+	int* temp = new int[Capacity + 1];
+
+	for (int i = 0; i <= Capacity; ++i)
+		temp[i] = NULL;
+
+	for (int i = 0; i < _where; ++i)
 		temp[i] = Vector[i];
 
+	temp[_where - 1] = _value;
+	
 	++Size;
+	for (int i = _where + 1; i < Size; ++i)
+		temp[i] = Vector[i - 1];
 
-	for (int i = _where; i < Size; ++i)
-		Vector[i] = temp[i - 1];
+	if (Vector)
+	{
+		delete Vector;
+		Vector = nullptr;
+	}
+
+	Vector = temp;
 
 
-	Vector[_where - 1] = _value;
-
-
+	for (int i = 0; i < Size; ++i)
+		cout << " Value : " << Vector[i] << endl;
+	cout << "Size : " << Size << endl;
+	cout << "Capacity : " << Capacity << endl;
 }
 
 /*
