@@ -34,8 +34,8 @@ int main(void)
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
 
-	insert(1, 1);
-	insert(1, 1);
+	insert(4, 3);
+	insert(2, 5);
 	insert(1, 1);
 	insert(1, 1);
 
@@ -138,13 +138,13 @@ void insert(const int& _where, const int& _value)
 	for (int i = 0; i <= Capacity; ++i)
 		temp[i] = NULL;
 
-	for (int i = 0; i < _where; ++i)
+	for (int i = 0; i < _where - 1; ++i)
 		temp[i] = Vector[i];
 
 	temp[_where - 1] = _value;
 	
 	++Size;
-	for (int i = _where + 1; i < Size; ++i)
+	for (int i = _where; i < Size; ++i)
 		temp[i] = Vector[i - 1];
 
 	if (Vector)
